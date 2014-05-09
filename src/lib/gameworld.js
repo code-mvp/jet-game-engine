@@ -102,6 +102,11 @@
        this.add(sprite);
        return sprite;
     },
+    text: function(text,x,y){
+       var text = new TextSprite(this,text,x,y);
+       this.add(text);
+       return text;
+    },
     getKey: function (keyCode) {
      if (this.keyState && this.keyState[keyCode]) return true;
      return false;

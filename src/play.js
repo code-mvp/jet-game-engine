@@ -64,7 +64,7 @@ Game.Play.prototype = {
 	         this.player.vy = -this.player.speed*2;
 	      }
 	     }
-	    
+
 	     this.player.vx *= this.player.friction;
 	     this.player.vy += this.player.gravity;
 	    
@@ -76,11 +76,15 @@ Game.Play.prototype = {
 	        this.player.jumping = false;
 	     }
 
+	     if (this.player.x >= this.game.w){
+	     	this.player.vx = - this.player.vx;
+	     }
+
 	     this.game.collide(this.player, this.cubes.children, this.handleCollision, this);
   	},
   	handleCollision: function(){
-  		this.player.visible = false;
-
+  		//this.player.visible = false;
+		this.game.state.start('End');
   	},
 	loadLevel: function(){
 		console.log("Level: ", this.level);
