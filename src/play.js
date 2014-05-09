@@ -26,8 +26,6 @@ var map = [
 
 Game.Play = function(game){
 	this.game = game;
-	console.log("Play: ", this);
-	this.create();
 };
 
 Game.Play.prototype = {
@@ -41,11 +39,43 @@ Game.Play.prototype = {
 		this.level = 0;
 		this.loadLevel();
 		this.game.start();
+		console.log("play: create");
 	},
 	
 	update: function(){
-
-	},
+		console.log("play: update");
+	    if (!this.p1.actor) return;
+	    
+	    if (this.game.getKey(GameWorld.Keys.left) !== false){
+	       if (this.vx > -this.speed){
+	         this.vx--;
+	       }
+	       
+	     }
+	     if (this.game.getKey(GameWorld.Keys.right) !== false){
+	       if (this.p1.vx < this.p1.speed) {
+	         this.p1.vx++;
+	       }
+	       
+	     }
+	     if (this.game.getKey(GameWorld.Keys.up) !== false){
+	       if(!this.p1.jumping){
+	         this.p1.jumping = true;
+	         this.p1.vy = -this.p1.speed*2;
+	      }
+	     }
+	    
+	     this.p1.vx *= this.p1.friction;
+	     this.p1.vy += this.p1.gravity;
+	    
+	     this.p1.x += this.p1.vx;
+	     this.p1.y += this.p1.vy;
+	    
+	     if(this.p1.y >= 260){
+	        this.p1.y = 260; //this.world.h - this.height;
+	        this.p1.jumping = false;
+	    }
+  },
 	
 	loadLevel: function(){
 		console.log("Level: ", this.level);
@@ -54,12 +84,10 @@ Game.Play.prototype = {
 	},
 
 	drawLevel: function(maap){
-		console.log("MAAP: ",maap);
 		var cube, height;
 		var h = 300;
 		for (var i = 0; i < maap.length; i++) {
 			cube = this.cubes.children[i];
-			console.log("cube: ", cube);
 			if (maap[i] == 2) {
 				cube.reset(100+i*cube.w, h*2/3);
 				cube.visible = true;

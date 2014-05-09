@@ -22,7 +22,7 @@
         element.addEventListener("keydown", function(e){
             that.keyState[e.keyCode] = e.keyCode;
             e.preventDefault();
-            
+            console.log(that.keyState);
         },false);
       
        element.addEventListener("keyup", function(e){
@@ -39,7 +39,8 @@
     "left": 37,
     "up":38,
     "right":39,
-    "down":40
+    "down":40,
+    "space":32
   };
     
   GameWorld.prototype.getKey = function (keyCode) {
@@ -120,6 +121,7 @@
           e.draw(that.ctx);
         }
       });
+      that.state.render();
     },
     start: function(){
       this.loop();
@@ -128,7 +130,8 @@
       var that = this;
       that.update();
       that.clear();
-      that.draw();  window.requestAnimationFrame(that.loop.bind(this));
+      that.draw();  
+      window.requestAnimationFrame(that.loop.bind(this));
     },
     update: function(){
       var that = this;
@@ -136,6 +139,9 @@
         e.update();
         //that.clamp(e,"x",10,220);
       });
+
+      this.state.update();
+
     },
     clamp: function(e,p,min,max){
         if (e[p] < min) e[p] = min;

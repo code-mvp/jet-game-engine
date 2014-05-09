@@ -14,4 +14,5 @@
 	game.state.add('End', Game.End);
 
 	game.state.start('Load');
+	game.state.start('Play');
 }());

@@ -18,43 +18,11 @@ Sprite = function(game,x,y,w,h,fillStyle){
 };
 
 Sprite.prototype = {
- 
+  /* implement this in derived objects */ 
   update: function(){
-     
-    if (!this.actor) return;
-    
-    if (this.world.getKey(GameWorld.Keys.left) !== false){
-       if (this.vx > -this.speed){
-         this.vx--;
-       }
-       
-     }
-     if (this.world.getKey(GameWorld.Keys.right) !== false){
-       if (this.vx < this.speed) {
-         this.vx++;
-       }
-       
-     }
-     if (this.world.getKey(GameWorld.Keys.up) !== false){
-       if(!this.jumping){
-         this.jumping = true;
-         this.vy = -this.speed*2;
-      }
-     }
-    
-     this.vx *= this.friction;
-     this.vy += this.gravity;
-    
-     this.x += this.vx;
-     this.y += this.vy;
-    
-     if(this.y >= 260){
-        this.y = 260; //this.world.h - this.height;
-        this.jumping = false;
-    }
-    
   },
   draw: function(ctx) {
+     //console.log("Sprite.draw");
      ctx.save();
      ctx.fillStyle = this.fillStyle;
      ctx.strokeRect(this.x,this.y,this.w,this.h);
@@ -92,5 +60,4 @@ Sprite.prototype.reset = function(x, y, health) {
 
     this.health = health;
     //return this;
-
 };
