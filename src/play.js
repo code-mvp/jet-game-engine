@@ -79,7 +79,8 @@ Game.Play.prototype = {
 	     this.game.collide(this.player, this.cubes.children, this.handleCollision, this);
   	},
   	handleCollision: function(){
-  		
+  		this.player.visible = false;
+
   	},
 	loadLevel: function(){
 		console.log("Level: ", this.level);
