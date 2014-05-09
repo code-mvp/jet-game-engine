@@ -25,20 +25,22 @@ var map = [
 
 
 Game.Play = function(game){
+	this.game = game;
 	console.log("Play: ", this);
-	game.start();
+	this.create();
 };
 
 Game.Play.prototype = {
 	create: function(){
 		this.level = 0;
 		this.loadLevel();
-		game.start();
+		this.game.start();
 	},
 	update: function(){
 
 	},
 	loadLevel: function(){
+		console.log("Level: ", this.level);
 		this.drawLevel(map[this.level]);
 		this.level++;
 	},
