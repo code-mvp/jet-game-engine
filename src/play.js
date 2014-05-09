@@ -47,8 +47,8 @@ Game.Play.prototype = {
 	    if (!this.p1.actor) return;
 	    
 	    if (this.game.getKey(GameWorld.Keys.left) !== false){
-	       if (this.vx > -this.speed){
-	         this.vx--;
+	       if (this.p1.vx > -this.p1.speed){
+	         this.p1.vx--;
 	       }
 	       
 	     }

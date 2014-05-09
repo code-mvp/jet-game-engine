@@ -49,9 +49,10 @@ StateManager.prototype = {
         
         this.onUpdateCallback = this.states[key]['update'] || null;
         this.onCreateCallback = this.states[key]['create'] || null;
+        
     },
     render: function(){
-        
+
     },
     update: function(){
         
