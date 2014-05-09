@@ -103,7 +103,7 @@
        return sprite;
     },
     text: function(text,x,y){
-       var text = new TextSprite(this,text,x,y);
+       var text = new Text(this,text,x,y);
        this.add(text);
        return text;
     },

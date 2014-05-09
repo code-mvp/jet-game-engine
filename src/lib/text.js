@@ -1,11 +1,11 @@
-TextSprite = function(game,text, x, y){
+Text = function(game,text, x, y){
 	this.game = game;
 	this.text = text;
 	this.x = x;
 	this.y = y;
 };
 
-TextSprite.prototype = {
+Text.prototype = {
    update: function(){},
    draw: function (){
    		this.game.ctx.save();
