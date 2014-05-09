@@ -30,9 +30,9 @@ Game.Play = function(game){
 
 Game.Play.prototype = {
 	create: function(){
-		this.p1 = this.game.sprite(20,250,30,30,"gray");
-		this.p1.boundary = true;
-		this.p1.actor = true;
+		this.player = this.game.sprite(20,250,30,30,"gray");
+		this.player.boundary = true;
+		this.player.actor = true;
 
 		this.cubes = this.game.group();
 		this.cubes.createMultiple(20, 'cube');
@@ -44,39 +44,43 @@ Game.Play.prototype = {
 	
 	update: function(){
 		console.log("play: update");
-	    if (!this.p1.actor) return;
+	    if (!this.player.actor) return;
 	    
 	    if (this.game.getKey(GameWorld.Keys.left) !== false){
-	       if (this.p1.vx > -this.p1.speed){
-	         this.p1.vx--;
+	       if (this.player.vx > -this.player.speed){
+	         this.player.vx--;
 	       }
 	       
 	     }
 	     if (this.game.getKey(GameWorld.Keys.right) !== false){
-	       if (this.p1.vx < this.p1.speed) {
-	         this.p1.vx++;
+	       if (this.player.vx < this.player.speed) {
+	         this.player.vx++;
 	       }
 	       
 	     }
-	     if (this.game.getKey(GameWorld.Keys.up) !== false){
-	       if(!this.p1.jumping){
-	         this.p1.jumping = true;
-	         this.p1.vy = -this.p1.speed*2;
+	     if (this.game.getKey(GameWorld.Keys.up) !== false || this.game.getKey(GameWorld.Keys.space)){
+	       if(!this.player.jumping){
+	         this.player.jumping = true;
+	         this.player.vy = -this.player.speed*2;
 	      }
 	     }
 	    
-	     this.p1.vx *= this.p1.friction;
-	     this.p1.vy += this.p1.gravity;
+	     this.player.vx *= this.player.friction;
+	     this.player.vy += this.player.gravity;
 	    
-	     this.p1.x += this.p1.vx;
-	     this.p1.y += this.p1.vy;
+	     this.player.x += this.player.vx;
+	     this.player.y += this.player.vy;
 	    
-	     if(this.p1.y >= 260){
-	        this.p1.y = 260; //this.world.h - this.height;
-	        this.p1.jumping = false;
-	    }
-  },
-	
+	     if(this.player.y >= 270){
+	        this.player.y = 270; //this.world.h - this.height;
+	        this.player.jumping = false;
+	     }
+
+	     this.game.collide(this.player, this.cubes.children, this.handleCollision, this);
+  	},
+  	handleCollision: function(){
+  		
+  	},
 	loadLevel: function(){
 		console.log("Level: ", this.level);
 		this.drawLevel(map[this.level]);
@@ -89,7 +93,7 @@ Game.Play.prototype = {
 		for (var i = 0; i < maap.length; i++) {
 			cube = this.cubes.children[i];
 			if (maap[i] == 2) {
-				cube.reset(100+i*cube.w, h*2/3);
+				cube.reset(100+i*cube.w, 260);
 				cube.visible = true;
 				height = 1;
 			}

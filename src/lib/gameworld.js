@@ -147,6 +147,28 @@
         if (e[p] < min) e[p] = min;
         if (e[p] > max) e[p] = max;
     },
+    collide: function(object1, object2, overlapCallback, callbackContext){
+       if (Array.isArray(object2))
+        {
+            for (var i = 0,  len = object2.length; i < len; i++)
+            {
+                this.collideHandler(object1, object2[i], overlapCallback,callbackContext);
+            }
+        }
+        else
+        {
+            this.collideHandler(object1, object2, overlapCallback,callbackContext);
+        }
+    },
+    collideHandler: function(o1, o2, overlapCallback, callbackContext){
+        var result = !(o1.x + o1.w < o2.x ||
+                       o2.x + o2.w < o1.x ||
+                       o1.y + o1.h < o2.y ||
+                       o2.y + o2.h < o1.y);
+        if (result){
+          overlapCallback.call(callbackContext);
+        }
+    }
   };
 }());
 
