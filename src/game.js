@@ -12,5 +12,12 @@
 	var cubes = game.group();
 	cubes.createMultiple(20, 'cube');
 
-	game.start();
+	//game.start();
+
+	//
+	game.state.add('Load', Game.Load);
+	game.state.add('Play', Game.Play);
+	game.state.add('End', Game.End);
+
+	game.state.start('Load');
 }());
