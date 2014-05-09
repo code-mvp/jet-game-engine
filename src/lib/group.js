@@ -1,6 +1,7 @@
  
 Group = function (game){
   this.game = game;
+  this.children = [];
 };
 Group.prototype = {
   createMultiple: function(quantity, key){
@@ -8,7 +9,9 @@ Group.prototype = {
       this.key = key;
   
       for(var i = 0; i < quantity; i++){
-         this.game.sprite(0,0,30,40,"blue");
+         var s = this.game.sprite(0,0,30,40,"blue");
+         s.visible = false;
+         this.children.push(s);
       }
   },
   update: function(){

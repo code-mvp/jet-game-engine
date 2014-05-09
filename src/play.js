@@ -1,5 +1,5 @@
 var map = [
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0],
@@ -32,19 +32,39 @@ Game.Play = function(game){
 
 Game.Play.prototype = {
 	create: function(){
+		this.p1 = this.game.sprite(20,250,30,30,"gray");
+		this.p1.boundary = true;
+		this.p1.actor = true;
+
+		this.cubes = this.game.group();
+		this.cubes.createMultiple(20, 'cube');
 		this.level = 0;
 		this.loadLevel();
 		this.game.start();
 	},
+	
 	update: function(){
 
 	},
+	
 	loadLevel: function(){
 		console.log("Level: ", this.level);
 		this.drawLevel(map[this.level]);
 		this.level++;
 	},
+
 	drawLevel: function(maap){
 		console.log("MAAP: ",maap);
+		var cube, height;
+		var h = 300;
+		for (var i = 0; i < maap.length; i++) {
+			cube = this.cubes.children[i];
+			console.log("cube: ", cube);
+			if (maap[i] == 2) {
+				cube.reset(100+i*cube.w, h*2/3);
+				cube.visible = true;
+				height = 1;
+			}
+		}
 	}
 };

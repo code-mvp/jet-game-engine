@@ -116,7 +116,9 @@
     draw: function(){
       var that = this;
       that.entities.forEach(function(e){
-        e.draw(that.ctx);
+        if (e.visible){
+          e.draw(that.ctx);
+        }
       });
     },
     start: function(){
